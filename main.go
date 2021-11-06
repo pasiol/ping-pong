@@ -25,7 +25,7 @@ func main() {
 		port = "8888"
 	}
 	address := fmt.Sprintf("0.0.0.0:%s", port)
-	log.Printf("go-pingopong starting in port %s.", address)
+	log.Printf("pingopong starting in port %s.", address)
 	http.HandleFunc("/pingpong", handler)
 	log.Fatal(http.ListenAndServe(address, nil))
 }
