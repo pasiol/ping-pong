@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ping-pong
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ping-pong
+  template:
+    metadata:
+      labels:
+        app: ping-pong
+    spec:
+      containers:
+        - name: ping-pong
+          env:
+            - name: PORT
+              value: "8888"
+          image: pasiol/ping-pong@sha256:ffbee10db4f855f1f24106064be8f6e236d7c1f6f43a6e1db77a9be6b020d3fe
