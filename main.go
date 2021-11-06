@@ -11,7 +11,7 @@ var counter = 0
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	counter++
-	output := fmt.Sprintf("Ping / Pongs: %d", counter)
+	output := fmt.Sprintf("Ping / Pongs: %d\n", counter)
 	_, err := fmt.Fprintf(w, output)
 	if err != nil {
 		log.Fatalf("writing response failed %s", r.RemoteAddr)
