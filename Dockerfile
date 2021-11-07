@@ -22,7 +22,8 @@ RUN (([ ! -d "${APP_PATH}/vendor" ] && go mod download && go mod vendor) || true
 RUN go build -ldflags="-s -w" -mod vendor -o ${APP_BUILD_NAME} main.go
 RUN chmod +x ${APP_BUILD_NAME}
 
-FROM scratch AS prod
+FROM debian:10-slim AS prod
+RUN apt update -y && apt install -y curl iproute2
 
 ENV APP_BUILD_PATH="/var/app" \
     APP_BUILD_NAME="main"
