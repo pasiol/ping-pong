@@ -2,6 +2,8 @@
 
 ## Exercise 1.09
 
+[https://github.com/pasiol/ping-pong/tree/1.09]
+
     pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/deployment.yaml
     deployment.apps/ping-pong created
     pasiol@lab:~$ kubectl get pods
