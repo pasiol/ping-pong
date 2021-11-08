@@ -19,7 +19,7 @@ spec:
       containers:
         - name: ping-pong
           env:
-            - name: PORT
+            - name: APP_PORT
               value: "8888"
             - name: APP_OUTPUT_FILE
               value: "/var/app/data/pingpong.txt"
