@@ -12,9 +12,17 @@ spec:
       labels:
         app: ping-pong
     spec:
+      volumes:
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: log-output-claim
       containers:
         - name: ping-pong
           env:
             - name: PORT
               value: "8888"
+            - name: APP_OUTPUT_FILE
+              value: "/var/app/data/pingpong.txt"
+            - name: APP_LOG_FILE
+              value: "pingpong.log"
           image: pasiol/ping-pong@sha256:ffbee10db4f855f1f24106064be8f6e236d7c1f6f43a6e1db77a9be6b020d3fe
