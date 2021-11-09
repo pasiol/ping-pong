@@ -12,10 +12,6 @@ spec:
       labels:
         app: ping-pong
     spec:
-      volumes:
-        - name: shared-data
-          persistentVolumeClaim:
-            claimName: log-output-claim
       containers:
         - name: ping-pong
           env:
@@ -26,6 +22,3 @@ spec:
             - name: APP_LOG_FILE
               value: "pingpong.log"
           image: pasiol/ping-pong@sha256:c2ae30be6702a1399812678436c31da5f1095155e55a4fcb0f65db2c96fa1fae
-          volumeMounts:
-            - mountPath: /var/app/data
-              name: shared-data
