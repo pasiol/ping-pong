@@ -21,4 +21,5 @@ spec:
               value: "/var/app/data/pingpong.txt"
             - name: APP_LOG_FILE
               value: "pingpong.log"
-          image: pasiol/ping-pong@sha256:c2ae30be6702a1399812678436c31da5f1095155e55a4fcb0f65db2c96fa1fae
+          image: pasiol/ping-pong@sha256:357daceabd8131247e4596e354856de6327f40b46390d5ba89d8a33922670cbe
+          imagePullPolicy: IfNotPresent
