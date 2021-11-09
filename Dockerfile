@@ -28,6 +28,7 @@ RUN apt update -y && apt install -y curl iproute2
 ENV APP_BUILD_PATH="/var/app" \
     APP_BUILD_NAME="main"
 WORKDIR ${APP_BUILD_PATH}
+RUN mkdir data
 COPY --from=build ${APP_BUILD_PATH}/${APP_BUILD_NAME} ${APP_BUILD_PATH}/
 
 ENTRYPOINT ["/var/app/main"]
