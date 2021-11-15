@@ -4,29 +4,39 @@
 
 [https://github.com/pasiol/ping-pong/tree/1.09]
 
-    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/deployment.yaml
+    kubectl delete -f https://raw.githubusercontent.com/pasiol/todo-project/1.08/manifests/ingress.yaml
+    ingress.networking.k8s.io "todo-project-ingress" deleted
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/deployment.yaml
     deployment.apps/ping-pong created
-    pasiol@lab:~$ kubectl get pods
-    NAME                          READY   STATUS    RESTARTS   AGE
-    log-output-5ff9857984-n7tbg   1/1     Running   0          170m
-    ping-pong-5958c444d8-zqjcm    1/1     Running   0          15s
-    pasiol@lab:~$ kubectl logs ping-pong-5958c444d8-zqjcm
-    2021/11/06 16:19:29 go-pingopong starting in port 0.0.0.0:8888.
-    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/service.yaml
+
+    kubectl get pods
+    NAME                            READY   STATUS              RESTARTS   AGE
+    todo-project-86bd654c5c-drr9p   1/1     Running             0          62m
+    log-output-6897c6f44-q9zfw      1/1     Running             0          38m
+    ping-pong-5d99cfc6cb-tp5nx      0/1     ContainerCreating   0          12s
+
+    kubectl logs ping-pong-5d99cfc6cb-tp5nx
+    2021/11/15 19:00:17 pingopong starting in port 0.0.0.0:8888.
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/service.yaml
     service/ping-pong-svc created
-    pasiol@lab:~$ kubectl get svc
-    NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-    kubernetes       ClusterIP   10.43.0.1       <none>        443/TCP          34h
-    log-output-svc   NodePort    10.43.253.246   <none>        1234:30080/TCP   171m
-    ping-pong-svc    ClusterIP   10.43.237.184   <none>        8888/TCP         18s
-    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/ingress.yaml
+
+    kubectl get svc
+    NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+    kubernetes         ClusterIP   10.43.0.1       <none>        443/TCP    70m
+    todo-project-svc   ClusterIP   10.43.151.224   <none>        8000/TCP   53m
+    ping-pong-svc      ClusterIP   10.43.211.238   <none>        8888/TCP   8s
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/ingress.yaml
     ingress.networking.k8s.io/ping-pong-ingress created
-    pasiol@lab:~$ kubectl get ing
+
+    kubectl get ing
     NAME                CLASS    HOSTS   ADDRESS                            PORTS   AGE
-    ping-pong-ingress   <none>   *       172.19.0.2,172.19.0.3,172.19.0.4   80      6s
-    pasiol@lab:~$ curl http://172.19.0.2/pingpong
-    Ping / Pongs: 2
-    pasiol@lab:~$ kubectl logs ping-pong-5958c444d8-zqjcm
-    2021/11/06 16:19:29 go-pingopong starting in port 0.0.0.0:8888.
-    2021/11/06 16:23:21 Ping / Pongs: 1
-    2021/11/06 16:24:52 Ping / Pongs: 2
+    ping-pong-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      8s
+
+    curl http://172.18.0.2/pingpong
+    Ping / Pongs: 1
+
+    kubectl logs ping-pong-5d99cfc6cb-tp5nx
+    2021/11/15 19:00:17 pingopong starting in port 0.0.0.0:8888.
+    2021/11/15 19:04:02 Ping / Pongs: 1
