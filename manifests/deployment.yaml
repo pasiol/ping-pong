@@ -40,6 +40,8 @@ spec:
           env:
             - name: APP_PORT
               value: "8888"
+            - name: ALLOWED_ORIGINS
+              value: http://log-output.local
             - name: POSTGRES_HOST
               value: postgres-pingpong
             - name: POSTGRES_USER
