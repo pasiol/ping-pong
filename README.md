@@ -2,7 +2,7 @@
 
 Exercise 2.07
 
-[https://github.com/pasiol/ping-pong/tree/2.07]
+https://github.com/pasiol/ping-pong/tree/2.07
 
 test locally
 
