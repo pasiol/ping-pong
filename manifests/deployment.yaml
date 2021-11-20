@@ -14,13 +14,35 @@ spec:
         app: ping-pong
     spec:
       containers:
+        - name: postgres-kareliahusky-container
+          image: pasiol/postgres@sha256:bfc952e11e0202b0a55860d07b202f969da426b1447b0da21a5efdc65ea90a9f
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: POSTGRES_DB
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/postgresql/data
         - name: ping-pong
           env:
             - name: APP_PORT
               value: "8888"
-            - name: APP_OUTPUT_FILE
-              value: "/var/app/data/pingpong.txt"
-            - name: APP_LOG_FILE
-              value: "pingpong.log"
-          image: pasiol/ping-pong@sha256:357daceabd8131247e4596e354856de6327f40b46390d5ba89d8a33922670cbe
+          image: pasiol/ping-pong@sha256:e5ad0505a4a6df88f4034335da7dd956d2c5483e8634b0df43280b1cba8aa33c
           imagePullPolicy: IfNotPresent
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: pingpong-pvc

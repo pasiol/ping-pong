@@ -19,7 +19,7 @@ ENTRYPOINT ["sh"]
 FROM dev as build
 
 RUN (([ ! -d "${APP_PATH}/vendor" ] && go mod download && go mod vendor) || true)
-RUN go build -ldflags="-s -w" -mod vendor -o ${APP_BUILD_NAME} main.go
+RUN go build -ldflags="-s -w" -mod vendor -o ${APP_BUILD_NAME} .
 RUN chmod +x ${APP_BUILD_NAME}
 
 FROM debian:10-slim AS prod
