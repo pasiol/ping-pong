@@ -40,6 +40,23 @@ spec:
           env:
             - name: APP_PORT
               value: "8888"
+            - name: POSTGRES_HOST
+              value: postgres-pingpong
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: POSTGRES_USER
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres
+                      key: POSTGRES_PASSWORD
+                - name: POSTGRES_DB
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres
+                        key: POSTGRES_DB
           image: pasiol/ping-pong@sha256:e5ad0505a4a6df88f4034335da7dd956d2c5483e8634b0df43280b1cba8aa33c
           imagePullPolicy: IfNotPresent
       volumes:
