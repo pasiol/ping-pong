@@ -1,15 +1,11 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: pingpong-pvc
   namespace: applications
-  labels:
-    type: local
 spec:
   accessModes:
-    - ReadWriteMany
-  storageClassName: pingpong
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  volumeName: pingpong-pv
+      storage: 100Mi

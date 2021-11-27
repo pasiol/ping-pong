@@ -36,12 +36,13 @@ spec:
           volumeMounts:
             - name: postgres-volume-mount
               mountPath: /var/lib/postgresql/data
+              subPath: postgres
         - name: ping-pong
           env:
             - name: APP_PORT
               value: "8888"
             - name: ALLOWED_ORIGINS
-              value: http://log-output.local
+              value: ping-pong-svc
             - name: POSTGRES_HOST
               value: postgres-pingpong
             - name: POSTGRES_USER
@@ -59,7 +60,7 @@ spec:
                 secretKeyRef:
                   name: postgres
                   key: POSTGRES_DB
-          image: pasiol/ping-pong@sha256:e5ad0505a4a6df88f4034335da7dd956d2c5483e8634b0df43280b1cba8aa33c
+          image: pasiol/ping-pong@sha256:52144e0f761a09852e2c01c8673b37c290ee161b1c0d8707c978fbb6efb00ff8
           imagePullPolicy: IfNotPresent
       volumes:
         - name: postgres-volume-mount
