@@ -21,7 +21,7 @@ spec:
             - name: ALLOWED_ORIGINS
               value: ping-pong-svc
             - name: POSTGRES_HOST
-              value: ping-pong-postgres
+              value: postgres-pingpong
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
