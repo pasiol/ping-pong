@@ -1,27 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ping-pong
+  name: ping-pong-postgres
   namespace: applications
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ping-pong
+      app: ping-pong-postgres
   template:
     metadata:
       labels:
-        app: ping-pong
+        app: ping-pong-postgres
     spec:
       containers:
-        - name: ping-pong
+        - name: postgres-pingpong
+          image: pasiol/postgres@sha256:bfc952e11e0202b0a55860d07b202f969da426b1447b0da21a5efdc65ea90a9f
+          imagePullPolicy: IfNotPresent
           env:
-            - name: APP_PORT
-              value: "8888"
-            - name: ALLOWED_ORIGINS
-              value: ping-pong-svc
-            - name: POSTGRES_HOST
-              value: ping-pong-postgres
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
@@ -37,8 +33,10 @@ spec:
                 secretKeyRef:
                   name: postgres
                   key: POSTGRES_DB
-          image: pasiol/ping-pong@sha256:fe9b619eecdedb196b956594863ddc069cca48f7f46f7246e3983c195d3c93c2
-          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
       volumes:
         - name: postgres-volume-mount
           persistentVolumeClaim:
