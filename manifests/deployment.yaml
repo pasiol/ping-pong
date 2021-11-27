@@ -39,7 +39,3 @@ spec:
                   key: POSTGRES_DB
           image: pasiol/ping-pong@sha256:fe9b619eecdedb196b956594863ddc069cca48f7f46f7246e3983c195d3c93c2
           imagePullPolicy: IfNotPresent
-      volumes:
-        - name: postgres-volume-mount
-          persistentVolumeClaim:
-            claimName: pingpong-pvc
