@@ -41,7 +41,7 @@ spec:
           imagePullPolicy: IfNotPresent
           readinessProbe:
             initialDelaySeconds: 10 # Initial delay until the readiness is tested
-            periodSeconds: 5 # How often to test
+            periodSeconds: 10 # How often to test
             httpGet:
               path: /health
               port: 8888

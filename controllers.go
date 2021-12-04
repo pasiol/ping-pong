@@ -15,14 +15,13 @@ func initializeDb() (*gorm.DB, *sql.DB, error) {
 	pgConf := postgres.Config{DSN: dsn, PreferSimpleProtocol: true}
 	db, err := gorm.Open(postgres.New(pgConf), &gorm.Config{})
 	if err != nil {
-		for n := 1; n <= 5; n++ {
+		for {
 			db, err = gorm.Open(postgres.New(pgConf), &gorm.Config{})
-			if err != nil && n == 5 {
-				return nil, nil, err
-			} else if err == nil {
+			if err == nil {
 				break
 			}
-			time.Sleep(time.Duration(10 * n))
+			log.Printf("database connection failed, trying again")
+			time.Sleep(time.Duration(10))
 		}
 	}
 	sqlDB, err := db.DB()
