@@ -48,7 +48,7 @@ func (a *App) getPingPong(w http.ResponseWriter, r *http.Request) {
 func (a *App) getHealth(w http.ResponseWriter, _ *http.Request) {
 	err := a.pool.Ping()
 	if err == nil {
-		respondWithJSON(w, http.StatusOK, "ok")
+		respondWithJSON(w, http.StatusOK, map[string]string{"message": "ok"})
 		return
 	} else {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
