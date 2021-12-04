@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -14,6 +15,7 @@ import (
 type App struct {
 	Router *mux.Router
 	DB     *gorm.DB
+	pool   *sql.DB
 }
 
 func (a *App) Initialize() {
@@ -21,7 +23,7 @@ func (a *App) Initialize() {
 	if err != nil {
 		log.Print("Reading environment failed.")
 	}
-	a.DB, err = initializeDb()
+	a.DB, a.pool, err = initializeDb()
 	if err != nil {
 		log.Fatalf("initializing database failed: %s", err)
 	}
@@ -31,6 +33,7 @@ func (a *App) Initialize() {
 
 func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/pingpong", a.getPingPong).Methods("GET")
+	a.Router.HandleFunc("/health", a.getHealth).Methods("GET")
 }
 
 func (a *App) Run() {
