@@ -44,4 +44,4 @@ spec:
       volumes:
         - name: postgres-volume-mount
           persistentVolumeClaim:
-            claimName: pingpong-pvc
+            claimName: ping-pong-db-pvc
