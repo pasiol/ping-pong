@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ping-pong-db-pvc
+  namespace: applications
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: applications
+  resources:
+    requests:
+      storage: 10Mi
+  volumeName: ping-pong-db-pv
