@@ -31,13 +31,14 @@ func (a *App) Initialize() {
 
 func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/pingpong", a.getPingPong).Methods("GET")
+	a.Router.HandleFunc("/", a.getPingPong).Methods("GET")
 }
 
 func (a *App) Run() {
 
 	headers := handlers.AllowedHeaders([]string{"Access-Control-Allow-Origin", "Content-Type"})
-	origins := handlers.AllowedOrigins([]string{fmt.Sprintf("http://%s", os.Getenv("ALLOWED_ORIGINS"))})
-	methods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodOptions, http.MethodConnect, http.MethodPost})
+	origins := handlers.AllowedOrigins([]string{"*"})
+	methods := handlers.AllowedMethods([]string{http.MethodGet, http.MethodOptions, http.MethodConnect})
 	maxAge := handlers.MaxAge(60)
 
 	address := fmt.Sprintf("0.0.0.0:%s", os.Getenv("APP_PORT"))

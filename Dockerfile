@@ -22,13 +22,11 @@ RUN (([ ! -d "${APP_PATH}/vendor" ] && go mod download && go mod vendor) || true
 RUN go build -ldflags="-s -w" -mod vendor -o ${APP_BUILD_NAME} .
 RUN chmod +x ${APP_BUILD_NAME}
 
-FROM debian:10-slim AS prod
-RUN apt update -y && apt install -y curl iproute2
+FROM scratch as Prod
 
 ENV APP_BUILD_PATH="/var/app" \
     APP_BUILD_NAME="main"
 WORKDIR ${APP_BUILD_PATH}
-RUN mkdir data
 COPY --from=build ${APP_BUILD_PATH}/${APP_BUILD_NAME} ${APP_BUILD_PATH}/
 
 ENTRYPOINT ["/var/app/main"]

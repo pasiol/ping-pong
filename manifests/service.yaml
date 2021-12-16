@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: docker.io/pasiol/ping-pong@sha256:49e45811303f347c2a832a2ecc49d8db8e6b3530d90f55e14cd8124f122fd8a8
+        - image: docker.io/pasiol/ping-pong@sha256:999184f57e91b283454e2017761fd8b344cf152b3db5a56cb22d309fe560610a
           env:
             - name: APP_PORT
               value: "8080"
